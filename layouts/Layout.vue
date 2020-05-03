@@ -1,14 +1,11 @@
 <template>
   <div class="theme-container vuepress-theme-simple">
     <header class="header">
-      <router-link
-        to="/"
-        :title="$description"
-        class="site-name"
-      >
+      <router-link to="/" :title="$description" class="site-name">
         {{ $site.title }}
       </router-link>
-      <div style="clear: both" />
+      <div v-if="description" class="description">{{ description }}</div>
+      <div style="clear: both;" />
       <nav-bar />
     </header>
     <home-page v-if="isHome" />
@@ -20,8 +17,8 @@
 <script>
 import HomePage from "../components/Home";
 import PostPage from "../components/Post";
-import FooterBar from '../components/FooterBar';
-import NavBar from '../components/NavBar';
+import FooterBar from "../components/FooterBar";
+import NavBar from "../components/NavBar";
 
 export default {
   components: {
@@ -32,8 +29,11 @@ export default {
   },
   computed: {
     isHome() {
-      return this.$page.path === '/';
-    }
-  }
+      return this.$page.path === "/";
+    },
+    description() {
+      return this.$themeConfig.description || "";
+    },
+  },
 };
 </script>
